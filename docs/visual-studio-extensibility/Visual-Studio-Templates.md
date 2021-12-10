@@ -1,8 +1,8 @@
 ---
 title: NuGet Packages in Visual Studio templates
 description: Instructions for including NuGet packages as part of Visual Studio project and item templates.
-author: karann-msft
-ms.author: karann
+author: JonDouglas
+ms.author: jodou
 ms.date: 01/03/2018
 ms.topic: conceptual
 ---
@@ -20,7 +20,9 @@ The remainder of this section describes the specific steps to take when authorin
 - [Adding packages to a template](#adding-packages-to-a-template)
 - [Best practices](#best-practices)
 
-For an example, see the [NuGetInVsTemplates sample](https://bitbucket.org/marcind/nugetinvstemplates).
+## Samples
+
+The [Preinstalled-Packages](https://github.com/NuGet/Samples/tree/main/Preinstalled-Packages) sample is available in the NuGet/Samples repository on GitHub.
 
 ## Adding packages to a template
 

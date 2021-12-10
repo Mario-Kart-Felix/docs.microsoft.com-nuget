@@ -1,8 +1,8 @@
 ---
 title: NuGet CLI update command
 description: Reference for the nuget.exe update command
-author: karann-msft
-ms.author: karann
+author: JonDouglas
+ms.author: jodou
 ms.date: 12/07/2017
 ms.topic: reference
 ---
@@ -81,7 +81,7 @@ where `<configPath>` identifies either a `packages.config` or solution file that
 
 - **`-Self`**
 
-  Updates nuget.exe to the latest version; all other arguments are ignored.
+  Updates `nuget.exe` to the latest version. `-Source` can be used however all other arguments are ignored. If no source is provided, checks `nuget.org` for updates regardless of `NuGet.Config` settings.
 
 - **`-Source`**
 

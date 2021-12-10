@@ -20,6 +20,7 @@
 ### Package restore options
 #### [Restore packages](consume-packages/package-restore.md)
 #### [Troubleshooting](consume-packages/package-restore-troubleshooting.md)
+### [Package source mapping](consume-packages/package-source-mapping.md)
 ### [Reinstall and update packages](consume-packages/reinstalling-and-updating-packages.md)
 ### [Manage global packages and cache folders](consume-packages/managing-the-global-packages-and-cache-folders.md)
 ### [Manage package trust boundaries](consume-packages/installing-signed-packages.md)
@@ -27,7 +28,7 @@
 ### [Work with source control systems](consume-packages/packages-and-source-control.md)
 ### [Common NuGet configurations](consume-packages/configuring-nuget-behavior.md)
 ## Reference packages in your project
-### [Package references in project files](consume-packages/package-references-in-project-files.md)
+### [PackageReference in project files](consume-packages/package-references-in-project-files.md)
 ### [Migrate packages.config to PackageReference](consume-packages/migrate-packages-config-to-package-reference.md)
 ### [packages.config](reference/packages-config.md)
 # Create packages
@@ -35,9 +36,10 @@
 ## [Create a package (dotnet CLI)](create-packages/creating-a-package-dotnet-cli.md)
 ## [Create a package (nuget.exe CLI)](create-packages/creating-a-package.md)
 ## [Create a package (MSBuild)](create-packages/creating-a-package-msbuild.md)
-## [Support multiple target frameworks in your project file](create-packages/multiple-target-frameworks-project-file.md)
+## [Package authoring best practices](create-packages/Package-authoring-best-practices.md)
 ## [Build a prerelease package](create-packages/prerelease-packages.md)
 ## [Create a symbol package](create-packages/symbol-packages-snupkg.md)
+## [Support multiple target frameworks in your project file](create-packages/multiple-target-frameworks-project-file.md)
 ## Advanced tasks
 ### [Support multiple target frameworks](create-packages/supporting-multiple-target-frameworks.md)
 ### [Modify source code and config files](create-packages/source-and-config-file-transformations.md)
@@ -68,6 +70,8 @@
 ## [Package installation process](concepts/package-installation-process.md)
 ## [Package versioning](concepts/package-versioning.md)
 ## [Dependency resolution](concepts/dependency-resolution.md)
+## [Best practices for a secure software supply chain](concepts/Security-Best-Practices.md)
+## [Troubleshooting Installed Packages](concepts/troubleshooting-installed-packages.md)
 # Reference
 ## [.nuspec](reference/nuspec.md)
 ## [nuget.config file](reference/nuget-config-file.md)
@@ -155,6 +159,7 @@
 ### [NU1605](reference/errors-and-warnings/NU1605.md)
 ### [NU1608](reference/errors-and-warnings/NU1608.md)
 ### [NU1701](reference/errors-and-warnings/NU1701.md)
+### [NU1703](reference/errors-and-warnings/NU1703.md)
 ### [NU1801](reference/errors-and-warnings/NU1801.md)
 ### [NU3000](reference/errors-and-warnings/NU3000.md)
 ### [NU3001](reference/errors-and-warnings/NU3001.md)
@@ -288,7 +293,13 @@
 ### [NuGet.org policies](nuget-org/policies/data-requests.md)
 ## Release notes
 ### [Known Issues](release-notes/known-issues.md)
+
+### NuGet 6.x
+#### [NuGet 6.0](release-notes/NuGet-6.0.md)
 ### NuGet 5.x
+#### [NuGet 5.11](release-notes/NuGet-5.11.md)
+#### [NuGet 5.10](release-notes/NuGet-5.10.md)
+#### [NuGet 5.9](release-notes/NuGet-5.9.md)
 #### [NuGet 5.8](release-notes/NuGet-5.8.md)
 #### [NuGet 5.7](release-notes/NuGet-5.7.md)
 #### [NuGet 5.6](release-notes/NuGet-5.6.md)
@@ -360,6 +371,6 @@
 #### [NuGet 1.3](release-notes/NuGet-1.3.md)
 #### [NuGet 1.2](release-notes/NuGet-1.2.md)
 #### [NuGet 1.1](release-notes/NuGet-1.1.md)
-## [FAQs](resources/nuget-faq.md)
+## [FAQs](resources/nuget-faq.yml)
 ## [Project format](resources/check-project-format.md)
 # [NuGet.org](nuget-org/overview-nuget-org.md)

@@ -37,6 +37,7 @@ Registered trusted signers:
       Service Index: https://api.nuget.org/v3/index.json
       Certificate fingerprint(s):
         SHA256 - 0E5F38F57DC1BCC806D8494F4F90FBCEDD988B46760709CBEEC6F4219AA6157D
+        SHA256 - 5A2901D6ADA3D18260B9C6DFE2133C95D74B9EEF6AE0E5DC334C8454D1477DF4
 
  2.   microsoft [author]
       Certificate fingerprint(s):
@@ -56,14 +57,14 @@ Adds a trusted signer with the given name to the config. This option has differe
 ## Options for add based on a package
 
 ```cli
-nuget trusted-signers add <package(s)> -Name <name> [options]
+nuget trusted-signers add <package> -Name <name> [options]
 ```
 
-where `<package(s)>` is one or more `.nupkg` files.
+where `<package>` is one signed `.nupkg` file.
 
 - **`-Author`**
 
-  Specifies that the author signature of the package(s) should be trusted.
+  Specifies that the author signature of the signed package should be trusted.
 
 - **`-AllowUntrustedRoot`**
 
@@ -75,7 +76,7 @@ where `<package(s)>` is one or more `.nupkg` files.
 
 - **`-Repository`**
 
-  Specifies that the repository signature or countersignature of the package(s) should be trusted.
+  Specifies that the repository signature or countersignature of the signed package should be trusted.
 
 Providing both `-Author` and `-Repository` at the same time is not supported.
 
@@ -170,7 +171,7 @@ nuget trusted-signers Add -Name author1 -CertificateFingerprint CE40881FF5F0AD3E
 
 nuget trusted-signers Add -Repository .\..\MyRepositorySignedPackage.nupkg -Name TrustedRepo
 
-nuget-trusted-signers Remove -Name TrustedRepo
+nuget trusted-signers Remove -Name TrustedRepo
 
-nuget-trusted-signers Sync -Name TrustedRepo
+nuget trusted-signers Sync -Name TrustedRepo
 ```

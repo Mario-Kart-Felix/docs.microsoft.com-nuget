@@ -1,15 +1,15 @@
 ---
 title: NuGet Find-Package PowerShell Reference
 description: Reference for Find-Package PowerShell command in the NuGet Package Manager Console in Visual Studio.
-author: karann-msft
-ms.author: karann
+author: JonDouglas
+ms.author: jodou
 ms.date: 6/1/2017
 ms.topic: reference
 ---
 
 # Find-Package (Package Manager Console in Visual Studio)
 
-*Version 3.0+; this topic describes the command within the [Package Manager Console](../../consume-packages/install-use-packages-powershell.md) in Visual Studio on Windows. For the generic PowerShell Find-Package command, see the [PowerShell PackageManagement reference](/powershell/module/packagemanagement/?view=powershell-6).*
+*Version 3.0+; this topic describes the command within the [Package Manager Console](../../consume-packages/install-use-packages-powershell.md) in Visual Studio on Windows. For the generic PowerShell Find-Package command, see the [PowerShell PackageManagement reference](/powershell/module/packagemanagement).*
 
 Gets the set of remote packages with specified ID or keywords from the package source.
 

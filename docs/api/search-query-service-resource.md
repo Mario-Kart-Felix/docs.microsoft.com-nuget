@@ -45,7 +45,9 @@ package metadata fields may also be considered.
 
 An unlisted package should never appear in search results.
 
-    GET {@id}?q={QUERY}&skip={SKIP}&take={TAKE}&prerelease={PRERELEASE}&semVerLevel={SEMVERLEVEL}&packageType={PACKAGETYPE}
+```
+GET {@id}?q={QUERY}&skip={SKIP}&take={TAKE}&prerelease={PRERELEASE}&semVerLevel={SEMVERLEVEL}&packageType={PACKAGETYPE}
+```
 
 ### Request parameters
 
@@ -66,6 +68,9 @@ filtering on a [variety of fields](../consume-packages/finding-and-choosing-pack
 The `skip` parameter defaults to 0.
 
 The `take` parameter should be an integer greater than zero. The server implementation may impose a maximum value.
+
+> [!Note]
+> nuget.org limits the `skip` parameter to 3,000 and the `take` parameter to 1,000.
 
 If `prerelease` is not provided, pre-release packages are excluded.
 
@@ -137,7 +142,9 @@ name      | string  | yes      | The name of the package type.
 
 ### Sample request
 
-    GET https://azuresearch-usnc.nuget.org/query?q=NuGet.Versioning&prerelease=false&semVerLevel=2.0.0
+```
+GET https://azuresearch-usnc.nuget.org/query?q=NuGet.Versioning&prerelease=false&semVerLevel=2.0.0
+```
 
 ### Sample response
 

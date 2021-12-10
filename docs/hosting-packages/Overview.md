@@ -1,8 +1,8 @@
 ---
 title: Overview of Hosting Your Own NuGet Feeds
 description: An overview of opens for hosting your own NuGet package feeds or galleries either locally or remotely.
-author: karann-msft
-ms.author: karann
+author: JonDouglas
+ms.author: jodou
 ms.date: 08/25/2017
 ms.topic: conceptual
 ms.reviewer: anangaur
@@ -25,6 +25,7 @@ There are also several other NuGet hosting products such as [Azure Artifacts](ht
 - [BaGet](https://github.com/loic-sharma/BaGet), an open-source implementation of NuGet V3 server built on ASP.NET Core
 - [Cloudsmith](https://cloudsmith.io/l/nuget-feed/), a fully managed package management SaaS
 - [GitHub package registry](https://help.github.com/articles/configuring-nuget-for-use-with-github-package-registry)
+- [GitLab Package Registry](https://docs.gitlab.com/ee/user/packages/nuget_repository/)
 - [LiGet](https://github.com/ai-traders/liget), an open-source implementation of NuGet V2 server that runs on kestrel in docker
 - [MyGet](https://myget.org)
 - [Nexus Repository OSS](https://www.sonatype.com/nexus-repository-oss) from Sonatype.

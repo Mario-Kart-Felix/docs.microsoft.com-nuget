@@ -1,13 +1,13 @@
 ---
 title: nuget.config File Reference
 description: NuGet.Config file reference including the config, bindingRedirects, packageRestore, solution, and packageSource sections.
-author: karann-msft
-ms.author: karann
+author: JonDouglas
+ms.author: jodou
 ms.date: 08/13/2019
 ms.topic: reference
 ---
 
-# nuget.config reference
+# `nuget.config` reference
 
 NuGet behavior is controlled by settings in different `NuGet.Config` or `nuget.config` files as described in [Common NuGet configurations](../consume-packages/configuring-nuget-behavior.md).
 
@@ -27,8 +27,8 @@ Contains miscellaneous configuration settings, which can be set using the [`nuge
 | Key | Value |
 | --- | --- |
 | dependencyVersion (`packages.config` only) | The default `DependencyVersion` value for package install, restore, and update, when the `-DependencyVersion` switch is not specified directly. This value is also used by the NuGet Package Manager UI. Values are `Lowest`, `HighestPatch`, `HighestMinor`, `Highest`. |
-| globalPackagesFolder (projects using PackageReference only) | The location of the default global packages folder. The default is `%userprofile%\.nuget\packages` (Windows) or `~/.nuget/packages` (Mac/Linux). A relative path can be used in project-specific `nuget.config` files. This setting is overridden by the NUGET_PACKAGES environment variable, which takes precedence. |
-| repositoryPath (`packages.config` only) | The location in which to install NuGet packages instead of the default `$(Solutiondir)/packages` folder. A relative path can be used in project-specific `nuget.config` files. This setting is overridden by the NUGET_PACKAGES environment variable, which takes precedence. |
+| globalPackagesFolder (projects using PackageReference only) | The location of the default global packages folder. The default is `%userprofile%\.nuget\packages` (Windows) or `~/.nuget/packages` (Mac/Linux). A relative path can be used in project-specific `nuget.config` files. This setting is overridden by the `NUGET_PACKAGES` environment variable, which takes precedence. |
+| repositoryPath (`packages.config` only) | The location in which to install NuGet packages instead of the default `$(Solutiondir)/packages` folder. A relative path can be used in project-specific `nuget.config` files. This setting is overridden by the `NUGET_PACKAGES` environment variable, which takes precedence. |
 | defaultPushSource | Identifies the URL or path of the package source that should be used as the default if no other package sources are found for an operation. |
 | http_proxy http_proxy.user http_proxy.password no_proxy | Proxy settings to use when connecting to package sources; `http_proxy` should be in the format `http://<username>:<password>@<domain>`. Passwords are encrypted and cannot be added manually. For `no_proxy`, the value is a comma-separated list of domains the bypass the proxy server. You can alternately use the http_proxy and no_proxy environment variables for those values. For additional details, see [NuGet proxy settings](http://skolima.blogspot.com/2012/07/nuget-proxy-settings.html) (skolima.blogspot.com). |
 | signatureValidationMode | Specifies the validation mode used to verify package signatures for package install, and restore. Values are `accept`, `require`. Defaults to `accept`.
@@ -97,7 +97,7 @@ Controls whether the `packages` folder of a solution is included in source contr
 
 ## Package source sections
 
-The `packageSources`, `packageSourceCredentials`, `apikeys`, `activePackageSource`, `disabledPackageSources` and `trustedSigners` all work together to configure how NuGet works with package repositories during install, restore, and update operations.
+The `packageSources`, `packageSourceCredentials`, `apikeys`, `activePackageSource`, `disabledPackageSources`, `trustedSigners` and `packageSourceMapping` all work together to configure how NuGet works with package repositories during install, restore, and update operations.
 
 The [`nuget sources` command](../reference/cli-reference/cli-ref-sources.md) is generally used to manage these settings, except for `apikeys` which is managed using the [`nuget setapikey` command](../reference/cli-reference/cli-ref-setapikey.md), and `trustedSigners` which is managed using the [`nuget trusted-signers` command](../reference/cli-reference/cli-ref-trusted-signers.md).
 
@@ -283,6 +283,7 @@ If a `certificate` specifies `allowUntrustedRoot` as `true` the given certificat
     </author>
     <repository name="nuget.org" serviceIndex="https://api.nuget.org/v3/index.json">
         <certificate fingerprint="0E5F38F57DC1BCC806D8494F4F90FBCEDD988B46760709CBEEC6F4219AA6157D" hashAlgorithm="SHA256" allowUntrustedRoot="false" />
+        <certificate fingerprint="5A2901D6ADA3D18260B9C6DFE2133C95D74B9EEF6AE0E5DC334C8454D1477DF4" hashAlgorithm="SHA256" allowUntrustedRoot="false" />
         <owners>microsoft;aspnet;nuget</owners>
     </repository>
 </trustedSigners>
@@ -314,6 +315,42 @@ If a match is not found, then NuGet checks file sources, and then http sources, 
 </fallbackPackageFolders>
 ```
 
+## Package source mapping section
+
+The `packageSourceMapping` section contains the details that help the NuGet package operations determine where a package id should be downloaded from.
+
+This section can only be managed manually right now.
+
+A `packageSourceMapping` section can only contain `packageSource` sections.
+
+### packageSource
+
+A sub section of the [`packageSourceMapping`](#package-source-mapping-section) section. Contains a mapping to help NuGet determine whether the source should be considered for downloading the package of interest.
+
+| Key |
+| --- |
+| Name of a package source declared in the [`packageSources`](#packagesources) section. The key must exactly match the the key of the package source. |
+
+The `packageSource` sections under `packageSourceMapping` are uniquely identified by the `key`.
+
+### package
+
+The `package` is part of the [`packageSource`](#packagesource) section.
+
+| Pattern |
+| --- |
+| A pattern as defined by the [syntax](../consume-packages/package-source-mapping.md) of Package Source mapping. |
+
+**Example**:
+
+```xml
+<packageSourceMapping>
+  <packageSource key="contoso.com">
+    <package pattern="Contoso.*" />
+  </packageSource>
+</packageSourceMapping>
+```
+
 ## packageManagement section
 
 Sets the default package management format, either *packages.config* or PackageReference. SDK-style projects always use PackageReference.
@@ -332,6 +369,9 @@ Sets the default package management format, either *packages.config* or PackageR
 </packageManagement>
 ```
 
+> [!Tip]
+> When `<clear />` is present for a given node, NuGet ignores previously defined configuration values for that node. [Read more about how settings are applied](../consume-packages/configuring-nuget-behavior.md#how-settings-are-applied).
+
 ## Using environment variables
 
 You can use environment variables in `nuget.config` values (NuGet 3.4+) to apply settings at run time.
@@ -344,7 +384,7 @@ If an environment variable is not found, NuGet uses the literal value from the c
 
 The table below show environnment variable syntax and path separator support for NuGet.Config files.
 
-### NuGet.Config environment variable support
+### `NuGet.Config` environment variable support
 
 | Syntax | Dir separator | Windows nuget.exe | Windows dotnet.exe | Mac nuget.exe (in Mono) | Mac dotnet.exe |
 |---|---|---|---|---|---|
@@ -431,6 +471,7 @@ Below is an example `nuget.config` file that illustrates a number of settings in
         </author>
         <repository name="nuget.org" serviceIndex="https://api.nuget.org/v3/index.json">
             <certificate fingerprint="0E5F38F57DC1BCC806D8494F4F90FBCEDD988B46760709CBEEC6F4219AA6157D" hashAlgorithm="SHA256" allowUntrustedRoot="false" />
+            <certificate fingerprint="5A2901D6ADA3D18260B9C6DFE2133C95D74B9EEF6AE0E5DC334C8454D1477DF4" hashAlgorithm="SHA256" allowUntrustedRoot="false" />
             <owners>microsoft;aspnet;nuget</owners>
         </repository>
     </trustedSigners>

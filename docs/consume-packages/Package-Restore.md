@@ -176,7 +176,7 @@ msbuild -restore
 
 ## Restore using Azure Pipelines
 
-When you create a build definition in Azure Pipelines, include the NuGet [restore](/azure/devops/pipelines/tasks/package/nuget#restore-nuget-packages) or .NET Core [restore](/azure/devops/pipelines/tasks/build/dotnet-core-cli?view=azure-devops) task in the definition before any build tasks. Some build templates include the restore task by default.
+When you create a build definition in Azure Pipelines, include the NuGet [restore](/azure/devops/pipelines/tasks/package/nuget#restore-nuget-packages) or .NET Core [restore](/azure/devops/pipelines/tasks/build/dotnet-core-cli) task in the definition before any build tasks. Some build templates include the restore task by default.
 
 ## Restore using Azure DevOps Server
 
@@ -239,4 +239,4 @@ To test the automatic package restore:
 
 ## Troubleshooting
 
-See [Troubleshoot package restore](package-restore-troubleshooting.md).
+See [Troubleshoot package restore](Package-restore-troubleshooting.md).

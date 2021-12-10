@@ -7,6 +7,7 @@
 ## [Publish a package](publish-a-package.md)
 ## [Package ID prefix reservation](id-prefix-reservation.md)
 ## [Package deprecation](deprecate-packages.md)
+## [Package readme](package-readme-on-nuget-org.md)
 # Policies
 ## [Data Requests](policies/Data-requests.md)
 ## [Dispute resolution](policies/dispute-resolution.md)
@@ -16,4 +17,4 @@
 ## [NuGet API](../api/overview.md)
 ## [licenses.nuget.org](licenses.nuget.org.md)
 # Resources
-## [FAQ](nuget-org-faq.md)
+## [FAQ](nuget-org-faq.yml)
