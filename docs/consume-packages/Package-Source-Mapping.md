@@ -1,6 +1,6 @@
 ---
 title: Package Source Mapping
-description: Describes  Describes the process of installing signed NuGet packages and configuring package signature trust settings.
+description: Describes package source mapping functionality and how to onboard
 author: nkolev92
 ms.author: nikolev
 ms.date: 10/15/2021
@@ -24,11 +24,18 @@ Older tooling will ignore the Package Source Mapping configuration. To use this 
 
 Package Source Mappings will apply to all project types – including .NET Framework – as long as compatible tooling is used.
 
+## Video walkthrough
+
+For a video-based overview of the Package Source Mapping feature, consider watching the [Secure your NuGet packages with Package Source Mapping](https://www.youtube.com/watch?v=G6P38Dn69Ro) video on YouTube.
+
 ## Enabling Package Source Mapping
 
 To opt into this feature, you must have a `nuget.config` file. Having a single `nuget.config` at the root of your repository is considered a best practice. See [nuget.config documentation](../reference/nuget-config-file.md) to learn more.
 
-Declare your desired package sources in your `nuget.config` file. Following your source declarations, add a `<packageSourceMapping>` element that specifies the desired mappings for each source.
+* Declare your desired package sources in your `nuget.config` file.
+* Following your source declarations, add a `<packageSourceMapping>` element that specifies the desired mappings for each source.
+* Declare exactly one `packageSource` element for each source in use.
+  * Add as many patterns as you find necessary.
 
 ```xml
 <!-- Define the package sources, nuget.org and contoso.com. -->
@@ -41,7 +48,7 @@ Declare your desired package sources in your `nuget.config` file. Following your
 </packageSources>
 
 <!-- Define mappings by adding package patterns beneath the target source. -->
-<!-- Contoso.* packages will be restored from contoso.com, everything else from nuget.org. -->
+<!-- Contoso.* packages and NuGet.Common will be restored from contoso.com, everything else from nuget.org. -->
 <packageSourceMapping>
   <!-- key value for <packageSource> should match key values from <packageSources> element -->
   <packageSource key="nuget.org">
@@ -49,6 +56,7 @@ Declare your desired package sources in your `nuget.config` file. Following your
   </packageSource>
   <packageSource key="contoso.com">
     <package pattern="Contoso.*" />
+    <package pattern="NuGet.Common" />
   </packageSource>
 </packageSourceMapping>
 ```
@@ -111,3 +119,4 @@ For an idea of how your source mappings may look like, refer to our [samples rep
 >
 > * There are no nuget.exe or dotnet.exe commands for managing the package source mapping configuration, see [NuGet/Home#10735](https://github.com/NuGet/Home/issues/10735).
 > * There are no means of mapping packages at package installation time, see [NuGet/Home#10730](https://github.com/NuGet/Home/issues/10730).
+> * There is a limitation when using the `DotNetCoreCLI@2` Azure Pipelines task which can be worked around by using `feed-` prefixes in your source mapping configuration. It is recommended however to use `NuGetAuthenticate` for your authentication needs and call the dotnet cli directly from a script task. See [microsoft/azure-pipelines-tasks#15542](https://github.com/microsoft/azure-pipelines-tasks/issues/15542).

@@ -18,6 +18,10 @@ NuGet behavior is controlled by settings in different `NuGet.Config` or `nuget.c
 <a name="repositoryPath"></a>
 <a name="proxy-settings"></a>
 
+> [!Tip]
+> Add a `nuget.config` file in the root of your project repository. This is considered a best practice as it promotes repeatability and ensures that different users have the same NuGet configuration.
+> You may need to configure `clear` elements to ensure no user or machine specific configuration is applied. [Read more about how settings are applied](../consume-packages/configuring-nuget-behavior.md#how-settings-are-applied).
+
 ## config section
 
 Contains miscellaneous configuration settings, which can be set using the [`nuget config` command](../reference/cli-reference/cli-ref-config.md).
@@ -28,9 +32,10 @@ Contains miscellaneous configuration settings, which can be set using the [`nuge
 | --- | --- |
 | dependencyVersion (`packages.config` only) | The default `DependencyVersion` value for package install, restore, and update, when the `-DependencyVersion` switch is not specified directly. This value is also used by the NuGet Package Manager UI. Values are `Lowest`, `HighestPatch`, `HighestMinor`, `Highest`. |
 | globalPackagesFolder (projects using PackageReference only) | The location of the default global packages folder. The default is `%userprofile%\.nuget\packages` (Windows) or `~/.nuget/packages` (Mac/Linux). A relative path can be used in project-specific `nuget.config` files. This setting is overridden by the `NUGET_PACKAGES` environment variable, which takes precedence. |
-| repositoryPath (`packages.config` only) | The location in which to install NuGet packages instead of the default `$(Solutiondir)/packages` folder. A relative path can be used in project-specific `nuget.config` files. This setting is overridden by the `NUGET_PACKAGES` environment variable, which takes precedence. |
+| repositoryPath (`packages.config` only) | The location in which to install NuGet packages instead of the default `$(Solutiondir)/packages` folder. A relative path can be used in project-specific `nuget.config` files. |
 | defaultPushSource | Identifies the URL or path of the package source that should be used as the default if no other package sources are found for an operation. |
 | http_proxy http_proxy.user http_proxy.password no_proxy | Proxy settings to use when connecting to package sources; `http_proxy` should be in the format `http://<username>:<password>@<domain>`. Passwords are encrypted and cannot be added manually. For `no_proxy`, the value is a comma-separated list of domains the bypass the proxy server. You can alternately use the http_proxy and no_proxy environment variables for those values. For additional details, see [NuGet proxy settings](http://skolima.blogspot.com/2012/07/nuget-proxy-settings.html) (skolima.blogspot.com). |
+| maxHttpRequestsPerSource | Controls the maximum number of parallel requests sent from NuGet to every package source for package dependency resolution and downloads. The default value on `dotnet.exe` is `Int32.MaxValue` which is derived from `HttpClientHandler.MaxConnectionsPerServer` property. This setting has no impact on `dotnet.exe` for `Mac OS` because the throttling limit is set to `16` to avoid too many open files error. The default value for `NuGet client tools` that runs on `.NET Framework` such as `Visual Studio` and `nuget.exe` is `64` on `Windows` and `1` on `Mono`. The default value for `Packages.config` style projects is set to `Environment.ProcessorCount`. Configuring `maxHttpRequestsPerSource` property to a value less than the default could impact NuGet performance. |
 | signatureValidationMode | Specifies the validation mode used to verify package signatures for package install, and restore. Values are `accept`, `require`. Defaults to `accept`.
 
 **Example**:
@@ -42,6 +47,7 @@ Contains miscellaneous configuration settings, which can be set using the [`nuge
     <add key="repositoryPath" value="c:\installed_packages" />
     <add key="http_proxy" value="http://company-squid:3128@contoso.com" />
     <add key="signatureValidationMode" value="require" />
+    <add key="maxHttpRequestsPerSource" value="16" />
 </config>
 ```
 
@@ -218,7 +224,7 @@ Stores keys for sources that use API key authentication, as set with the [`nuget
 
 ### disabledPackageSources
 
-Identified currently disabled sources. May be empty.
+Identified currently disabled sources. May be empty. Unless specific sources are disabled in this section, they are enabled.
 
 | Key | Value |
 | --- | --- |
@@ -234,6 +240,8 @@ Identified currently disabled sources. May be empty.
 <!-- Empty list -->
 <disabledPackageSources />
 ```
+
+In the example above, the package source `Contoso` is disabled and will not be used to download or install packages.
 
 ### activePackageSource
 
